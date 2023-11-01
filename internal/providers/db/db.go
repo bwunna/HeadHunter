@@ -37,6 +37,7 @@ func (db *DataBase) AddCompanyByName(name string) error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 
 }
@@ -55,6 +56,7 @@ func (db *DataBase) AddEmployee(employee models.Employee) error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -72,6 +74,7 @@ func (db *DataBase) AddDepartmentToCompany(companyName string, department models
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -92,5 +95,6 @@ func (db *DataBase) EmployPersonByName(name string, companyName string, departme
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
