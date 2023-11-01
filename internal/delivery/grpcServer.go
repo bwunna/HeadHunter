@@ -30,6 +30,7 @@ func RunGRPCServer() error {
 	server := v1.NewGrpcServer(newController)
 	fmt.Println("server is working")
 	lis, err := net.Listen("tcp", ":8082")
+
 	if err != nil {
 		return err
 	}
