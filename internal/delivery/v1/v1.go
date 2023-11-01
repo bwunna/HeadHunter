@@ -21,6 +21,7 @@ func (s GrpcServer) RegisterCompany(_ context.Context, request *employmentServic
 	response := employmentService.BasicResponse{Message: message}
 
 	return &response, err
+
 }
 
 func (s GrpcServer) RegisterEmployee(_ context.Context, request *employmentService.EmployeeRequest) (*employmentService.BasicResponse, error) {
