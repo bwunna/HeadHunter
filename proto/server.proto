@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = "./employmentService";
+
+message any{
+
+}
+
+message EmployeeRequest{
+  string name = 1;
+  map<string, any> skills = 2;
+}
+
+message BasicResponse{
+  string message = 1;
+
+}
+
+message EmploymentRequest{
+  string companyName = 1;
+  string departmentName = 2;
+  string employeeName = 3;
+}
+
+message DepartmentRequest{
+  string companyName = 1;
+  string depName = 2;
+  map <string, any> requiredSkills = 3;
+}
+
+message CompanyRequest{
+  string name = 1;
+
+}
+
+service EmploymentCenter{
+  rpc RegisterCompany(CompanyRequest) returns (BasicResponse);
+  rpc RegisterEmployee(EmployeeRequest) returns (BasicResponse);
+  rpc CreateNewDepartment(DepartmentRequest) returns (BasicResponse);
+  rpc EmployPerson(EmploymentRequest) returns (BasicResponse);
+}
