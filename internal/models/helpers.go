@@ -4,7 +4,7 @@ import "HeadHunter/pkg/employmentService"
 
 func ConvertEmployeeRequestToModelsEmployee(request *employmentService.EmployeeRequest) Employee {
 	skills := make(map[string]interface{})
-	for skill, _ := range request.Skills {
+	for skill := range request.Skills {
 		var b interface{}
 		skills[skill] = b
 	}
@@ -13,7 +13,8 @@ func ConvertEmployeeRequestToModelsEmployee(request *employmentService.EmployeeR
 
 func ConvertDepartmentRequestToModelsDepartment(request *employmentService.DepartmentRequest) (string, Department) {
 	skills := make(map[string]interface{})
-	for skill, _ := range request.RequiredSkills {
+
+	for skill := range request.RequiredSkills {
 		var b interface{}
 		skills[skill] = b
 	}

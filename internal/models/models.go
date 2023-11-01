@@ -1,5 +1,7 @@
 package models
 
+// structures for all project
+
 type Employee struct {
 	Name   string
 	Skills map[string]interface{}
