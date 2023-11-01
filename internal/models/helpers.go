@@ -2,6 +2,8 @@ package models
 
 import "HeadHunter/pkg/employmentService"
 
+//
+
 func ConvertEmployeeRequestToModelsEmployee(request *employmentService.EmployeeRequest) Employee {
 	skills := make(map[string]interface{})
 	for skill := range request.Skills {
