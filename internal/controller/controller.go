@@ -31,6 +31,7 @@ func (c *Controller) AddEmployee(request *employmentService.EmployeeRequest) (st
 func (c *Controller) AddCompanyByName(request *employmentService.CompanyRequest) (string, error) {
 	// adding company by its name
 	err := c.db.AddCompanyByName(request.Name)
+
 	if err != nil {
 		return "unable to add the company", err
 	}
