@@ -1,24 +1,23 @@
 package models
 
-import "HeadHunter/pkg/employmentService"
+import (
+	"HeadHunter/pkg/employmentService"
+)
 
 //
 
 func ConvertEmployeeRequestToModelsEmployee(request *employmentService.EmployeeRequest) Employee {
-	skills := make(map[string]interface{})
-	for skill := range request.Skills {
-		var b interface{}
-		skills[skill] = b
+	skills := make([]string, len(request.Skills))
+	for index, skill := range request.Skills {
+		skills[index] = skill
 	}
-	return Employee{Name: request.Name, Skills: skills}
+	return Employee{Name: request.Name, Skills: skills, Email: request.Email}
 }
 
 func ConvertDepartmentRequestToModelsDepartment(request *employmentService.DepartmentRequest) (string, Department) {
-	skills := make(map[string]interface{})
-
-	for skill := range request.RequiredSkills {
-		var b interface{}
-		skills[skill] = b
+	skills := make([]string, len(request.RequiredSkills))
+	for index, skill := range request.RequiredSkills {
+		skills[index] = skill
 	}
 
 	return request.CompanyName, Department{request.DepName, skills}

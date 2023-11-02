@@ -4,10 +4,11 @@ package models
 
 type Employee struct {
 	Name   string
-	Skills map[string]interface{}
+	Email  string
+	Skills []string
 }
 
 type Department struct {
 	Name           string
-	RequiredSkills map[string]interface{}
+	RequiredSkills []string
 }
