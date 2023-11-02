@@ -10,6 +10,8 @@ import (
 	"net"
 )
 
+// configuration for server
+
 const (
 	host       = "localhost"
 	port       = 5432
@@ -21,7 +23,6 @@ const (
 
 func RunGRPCServer() error {
 
-	// configuration for server
 	dataBase, err := db.NewDB(host, user, password, dbName, driverName, port)
 	if err != nil {
 		return err
