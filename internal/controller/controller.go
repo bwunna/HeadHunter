@@ -51,9 +51,9 @@ func (c *Controller) AddDepartmentToCompany(request *employmentService.Departmen
 
 func (c *Controller) EmployPerson(request *employmentService.EmploymentRequest) (string, error) {
 	// employing person
-	err := c.db.EmployPersonByName(request.EmployeeName, request.CompanyName, request.DepartmentName)
+	err := c.db.EmployPersonByEmail(request.Email, request.CompanyName, request.DepartmentName)
 	if err != nil {
-		return fmt.Sprintf("unable to employ %s to dep %s", request.EmployeeName, request.DepartmentName), err
+		return fmt.Sprintf("unable to employ person with email %s to dep %s", request.Email, request.DepartmentName), err
 	}
 
 	return "request was sent", nil
