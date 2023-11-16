@@ -2,13 +2,13 @@ package main
 
 import (
 	"HeadHunter/internal/delivery"
-	"log"
+	"fmt"
 )
 
 func main() {
-	// running server
 	err := delivery.RunGRPCServer()
 	if err != nil {
-		log.Fatal(err.Error())
+		fmt.Println(err.Error())
 	}
+
 }
