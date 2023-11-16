@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option go_package = "./employmentService";
+option go_package = "./pkg/employmentService";
+import "google/api/annotations.proto";
 // service structure
-
 message EmployeeRequest{
   string name = 1;
   repeated string skills = 2;
@@ -11,6 +11,7 @@ message EmployeeRequest{
 
 message BasicResponse{
   string message = 1;
+  int32 code = 2;
 
 }
 
@@ -24,6 +25,12 @@ message DepartmentRequest{
   string companyName = 1;
   string depName = 2;
   repeated string requiredSkills = 3;
+  int32 employeeLimit = 4;
+  int32 promotionIntervalInMinutes = 5;
+}
+
+message ByEmailRequest{
+  string email = 1;
 }
 
 message CompanyRequest{
@@ -31,9 +38,50 @@ message CompanyRequest{
 
 }
 
+message EmployeeInfo{
+  string name = 1;
+  string email = 2;
+  string status = 3;
+  string departmentName = 4;
+  string companyName = 5;
+  int32 salary = 6;
+}
+
 service EmploymentCenter{
-  rpc RegisterCompany(CompanyRequest) returns (BasicResponse);
-  rpc RegisterEmployee(EmployeeRequest) returns (BasicResponse);
-  rpc CreateNewDepartment(DepartmentRequest) returns (BasicResponse);
-  rpc EmployPerson(EmploymentRequest) returns (BasicResponse);
+  rpc RegisterCompany(CompanyRequest) returns (BasicResponse){
+    option (google.api.http) = {
+      post: "/employment-service/api/register-company"
+      body: "*"
+    };
+  }
+  rpc UpdateEmployeeSalaryByEmail(ByEmailRequest) returns (BasicResponse){
+    option (google.api.http) = {
+      post: "/employment-service/api/update-salary"
+      body : "*"
+    };
+  }
+
+  rpc RegisterEmployee(EmployeeRequest) returns (BasicResponse){
+    option (google.api.http) = {
+      post: "/employment-service/api/register-employee"
+      body: "*"
+    };
+  }
+  rpc CreateNewDepartment(DepartmentRequest) returns (BasicResponse){
+    option (google.api.http) = {
+      post: "/employment-service/api/create-department"
+      body: "*"
+    };
+  }
+  rpc EmployPerson(EmploymentRequest) returns (BasicResponse){
+    option (google.api.http) = {
+      post: "/employment-service/api/employ-person"
+      body: "*"
+    };
+  }
+  rpc GetEmployeeInfoByEmail(ByEmailRequest) returns (EmployeeInfo){
+    option (google.api.http) = {
+      get: "/employment-service/api/get-info"
+    };
+  }
 }
