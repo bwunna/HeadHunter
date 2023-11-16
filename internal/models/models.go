@@ -7,8 +7,17 @@ type Employee struct {
 	Email  string
 	Skills []string
 }
-
-type Department struct {
+type EmployeeInfo struct {
 	Name           string
-	RequiredSkills []string
+	Email          string
+	CompanyName    string
+	DepartmentName string
+	Status         string
+	Salary         int
+}
+type Department struct {
+	Name                       string
+	RequiredSkills             []string
+	EmployeesLimit             int
+	PromotionIntervalInMinutes int
 }
