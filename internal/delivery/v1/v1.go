@@ -33,7 +33,7 @@ func (s GrpcServer) RegisterCompany(_ context.Context, request *employmentServic
 		return &employmentService.BasicResponse{Message: MessageNotExecuted, Code: CodeNotExecuted}, err
 	}
 
-	return &employmentService.BasicResponse{Message: MessageOK, Code: CodeNotExecuted}, err
+	return &employmentService.BasicResponse{Message: MessageOK, Code: CodeOK}, err
 }
 
 // sending request in controller to register new employee
