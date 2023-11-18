@@ -11,8 +11,6 @@ type Client struct {
 	client userService.UserServiceClient
 }
 
-// constructor for user service client
-
 func Init(url string) (*Client, error) {
 	conn, err := grpc.Dial(url, grpc.WithInsecure())
 	if err != nil {

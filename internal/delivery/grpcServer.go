@@ -10,38 +10,38 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	"time"
 )
 
-// configuration for server
+// service starting
 
 const (
-	host       = "localhost"
-	port       = 5432
-	user       = "postgres"
-	password   = "9340fk3__132AA@"
-	dbName     = "company"
-	driverName = "postgres"
+	host           = "localhost"
+	port           = 5432
+	user           = "postgres"
+	password       = "9340fk3__132AA@"
+	dbName         = "company"
+	driverName     = "postgres"
+	servicePort    = ":8082"
+	userServiceURL = "localhost:8080"
 )
 
 func RunGRPCServer() error {
-	time.Sleep(time.Second * 0)
-	dataBase, err := db.NewDB(host, user, password, dbName, driverName, port)
+	dataBase, err := db.New(host, user, password, dbName, driverName, port)
 	if err != nil {
 		return err
 	}
 
-	client, err := userService.Init("localhost:8080")
+	client, err := userService.Init(userServiceURL)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	newController := controller.NewController(dataBase)
+	newController := controller.New(dataBase)
 
 	server := v1.NewGrpcServer(newController, client)
 
 	fmt.Println("server is working")
 
-	lis, err := net.Listen("tcp", ":8082")
+	lis, err := net.Listen("tcp", servicePort)
 	if err != nil {
 		return err
 	}

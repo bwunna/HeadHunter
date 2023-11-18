@@ -11,7 +11,7 @@ type DataBase struct {
 	db *sql.DB
 }
 
-// converts slice of keys into
+// converts slice of keys into one string
 
 func KeysInString(keys []string) string {
 	var answer string
@@ -25,9 +25,7 @@ func KeysInString(keys []string) string {
 	return answer
 }
 
-// constructor for db
-
-func NewDB(host, user, password, nameOfDB, driverName string, port int) (*DataBase, error) {
+func New(host, user, password, nameOfDB, driverName string, port int) (*DataBase, error) {
 	params := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, nameOfDB)
 
 	result, err := sql.Open(driverName, params)
@@ -46,40 +44,24 @@ func NewDB(host, user, password, nameOfDB, driverName string, port int) (*DataBa
 
 }
 
-// adding company by its name
-
 func (base *DataBase) AddCompanyByName(name string) error {
 	queryString := fmt.Sprintf(`insert into company(company_name) values('%s')`, name)
 	_, err := base.db.Query(queryString)
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
-
-// adding employee and his skills
 
 func (base *DataBase) AddEmployee(employee models.Employee) error {
 	queryString := fmt.Sprintf(`insert into employee(emp_name, skills, email) values('%s', array[%s], '%s')`, employee.Name, KeysInString(employee.Skills), employee.Email)
 	_, err := base.db.Query(queryString)
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
-
-// adding department to existing company
 
 func (base *DataBase) AddDepartmentToCompany(companyName string, department models.Department) error {
 	queryString := fmt.Sprintf(`insert into department (dep_name, company_id, required_skills, emp_limit, prom_interval) select '%s', 
                                                                       company_id, array[%s], %d, '%d minutes' from company where company_name = '%s'`,
 		department.Name, KeysInString(department.RequiredSkills), department.EmployeesLimit, department.PromotionIntervalInMinutes, companyName)
 	_, err := base.db.Query(queryString)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 // updating salary if employee has worked enough
@@ -124,11 +106,7 @@ func (base *DataBase) EmployPersonByEmail(email string, departmentName string, c
 	end $$;`,
 		companyName, departmentName, email)
 	_, err := base.db.Query(queryString)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 // getting info about employee name, email, salary, status and place of work
