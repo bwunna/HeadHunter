@@ -26,9 +26,7 @@ func NewGrpcServer(cnt *controller.Controller, usersClient *userService.Client) 
 // sending request in controller to register company by its name
 
 func (s GrpcServer) RegisterCompany(_ context.Context, request *employmentService.CompanyRequest) (*employmentService.BasicResponse, error) {
-
 	err := s.cnt.AddCompanyByName(request.Name)
-
 	if err != nil {
 		return &employmentService.BasicResponse{
 			Message: MessageNotExecuted,

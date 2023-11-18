@@ -19,13 +19,11 @@ func New(base *db.DataBase) *Controller {
 }
 
 func (c *Controller) AddEmployee(request *employmentService.EmployeeRequest) error {
-	// adding employee and his skills
 	err := c.db.AddEmployee(models.ConvertEmployeeRequestToModelsEmployee(request))
 	return err
 }
 
 func (c *Controller) AddCompanyByName(companyName string) error {
-	// adding company by its name
 	err := c.db.AddCompanyByName(companyName)
 	return err
 }
@@ -41,7 +39,6 @@ func (c *Controller) AddDepartmentToCompany(request *employmentService.Departmen
 }
 
 func (c *Controller) EmployPerson(email string, departmentName string, companyName string) error {
-	// employing person
 	err := c.db.EmployPersonByEmail(email, departmentName, companyName)
 	return err
 
